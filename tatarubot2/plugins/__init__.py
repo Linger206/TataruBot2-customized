@@ -57,3 +57,4 @@ if plugins_dict["weather"]:
     from .weather import *
 
 from .bot_help import *
+from .ip import *
