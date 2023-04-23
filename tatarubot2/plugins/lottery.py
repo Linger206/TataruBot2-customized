@@ -3,13 +3,13 @@
 仙人仙彩
 """
 
-from nonebot import on_command
-from nonebot.rule import to_me
-from nonebot.typing import T_State
-from nonebot.adapters import Bot, Event
-
 import random
 
+from nonebot import on_command
+from nonebot.adapters import Bot, Event
+from nonebot.typing import T_State
+
+from tatarubot2.plugins.utils import bot_name
 
 this_command = "仙人彩"
 lottery = on_command(this_command, priority=5)
@@ -40,6 +40,6 @@ async def handle_first_receive(bot: Bot, event: Event, state: T_State):
     args = str(event.get_message()).strip()
     if args == this_command:
         lottery_num_str = await random_lottery()
-        await lottery.finish("塔塔露觉得这个可以！\n" + lottery_num_str)
+        await lottery.finish(f"{bot_name}觉得这个可以！\n" + lottery_num_str)
     else:
         return
