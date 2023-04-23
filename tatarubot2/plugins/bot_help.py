@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from nonebot import on_command
+from nonebot import on_command, get_driver
 from nonebot.adapters import Bot, Event
 from nonebot.rule import to_me
 from nonebot.typing import T_State
@@ -15,11 +15,10 @@ from tatarubot2.plugins.market import market_help
 from tatarubot2.plugins.market_new import market_new_help
 from tatarubot2.plugins.nuannuan import nuannuan_help
 from tatarubot2.plugins.precious import precious_help
-from tatarubot2.plugins.utils import bot_name
 
 this_command = "/help"
 bot_help = on_command(this_command, rule=to_me(), priority=5)
-
+bot_name = get_driver().config.nickname
 
 async def create_help():
     return_list = []

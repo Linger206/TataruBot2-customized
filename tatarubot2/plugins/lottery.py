@@ -5,15 +5,13 @@
 
 import random
 
-from nonebot import on_command
+from nonebot import on_command, get_driver
 from nonebot.adapters import Bot, Event
 from nonebot.typing import T_State
 
-from tatarubot2.plugins.utils import bot_name
-
 this_command = "仙人彩"
 lottery = on_command(this_command, priority=5)
-
+bot_name = get_driver().config.nickname
 
 async def lottery_help():
     return this_command + "：帮你选每周仙人仙彩数字"
