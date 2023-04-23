@@ -10,7 +10,7 @@ import aiohttp
 from dotenv import load_dotenv
 
 load_dotenv()
-bot_name = os.getenv("NICKNAME")
+bot_name = os.getenv("NICKNAME") or "塔塔露"
 
 
 async def aiohttp_get(url_input, res_type="json", time_out=15, header_plus=None):
