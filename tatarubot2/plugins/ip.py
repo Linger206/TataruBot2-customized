@@ -4,13 +4,13 @@
 """
 
 import requests
-from nonebot import on_command
+from nonebot import on_fullmatch
 from nonebot.adapters.onebot.v11 import PrivateMessageEvent, GroupMessageEvent
 from nonebot.permission import SUPERUSER
 from nonebot.rule import to_me
 
 this_command = "ip"
-ip = on_command(this_command, rule=to_me(), permission=SUPERUSER, priority=5)
+ip = on_fullmatch(this_command, rule=to_me(), permission=SUPERUSER, priority=5)
 # 取消代理
 proxies = {"https": ""}
 
@@ -22,12 +22,8 @@ async def handle_first_receive(event: GroupMessageEvent):
 
 @ip.handle()
 async def handle_first_receive(event: PrivateMessageEvent):
-    args = str(event.get_message()).strip()
-    if args == this_command:
-        return_str = await pub_ipv4()
-        await ip.finish(return_str)
-    else:
-        return
+    return_str = await pub_ipv4()
+    await ip.finish(return_str)
 
 
 async def pub_ipv4():
