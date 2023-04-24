@@ -11,7 +11,7 @@ from nonebot.typing import T_State
 
 this_command = "选门"
 precious = on_command(this_command, priority=5)
-bot_name = get_driver().config.nickname
+(bot_name,) = get_driver().config.nickname
 
 
 async def precious_help():

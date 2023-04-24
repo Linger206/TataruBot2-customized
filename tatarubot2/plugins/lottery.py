@@ -11,7 +11,8 @@ from nonebot.typing import T_State
 
 this_command = "仙人彩"
 lottery = on_command(this_command, priority=5)
-bot_name = get_driver().config.nickname
+(bot_name,) = get_driver().config.nickname
+
 
 async def lottery_help():
     return this_command + "：帮你选每周仙人仙彩数字"

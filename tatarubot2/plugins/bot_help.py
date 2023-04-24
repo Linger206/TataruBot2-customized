@@ -18,7 +18,8 @@ from tatarubot2.plugins.precious import precious_help
 
 this_command = "/help"
 bot_help = on_command(this_command, rule=to_me(), priority=5)
-bot_name = get_driver().config.nickname
+(bot_name,) = get_driver().config.nickname
+
 
 async def create_help():
     return_list = []
