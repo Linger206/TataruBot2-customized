@@ -1,11 +1,13 @@
 """
 B站视频搜索
 """
-
 import requests
 from bs4 import SoupStrainer, BeautifulSoup
 from nonebot import on_command
 from nonebot.adapters import Event
+from nonebot.adapters.onebot.v11 import Message
+from nonebot.matcher import Matcher
+from nonebot.params import ArgPlainText
 from nonebot.rule import to_me
 
 this_command = "bili"
@@ -13,18 +15,17 @@ bili = on_command(this_command, aliases={"攻略"}, rule=to_me(), priority=5)
 
 
 @bili.handle()
-async def handle(event: Event):
-    key_word = ""
-    key_words = event.get_message().extract_plain_text().strip().split(" ")
-    if len(key_words) < 2:
-        bili.got("key_word", "请输入关键词:")
-    else:
-        key_word = "+".join(key_words[1:])
+async def handle(event: Event, matcher: Matcher):
+    key_words = event.get_message().extract_plain_text().strip().split(" ", 1)
+    if len(key_words) >= 2:
+        matcher.set_arg("key_word", Message(key_words[1]))
+
+
+@bili.got("key_word", prompt="请输入关键词:")
+async def handle_key_word(key_word: str = ArgPlainText()):
     key_word = key_word.strip().replace(" ", "+")
     if not key_word:
         await bili.finish("关键词为空")
-    if key_words[0] == "攻略":
-        key_word += "+攻略"
     result = await search_bili(key_word)
     await bili.finish(result[0] + ": " + result[1] + "\n" + result[2])
 
