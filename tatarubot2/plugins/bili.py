@@ -3,7 +3,7 @@ B站视频搜索
 """
 import requests
 from bs4 import SoupStrainer, BeautifulSoup
-from nonebot import on_command
+from nonebot import on_command, get_driver
 from nonebot.adapters import Event
 from nonebot.adapters.onebot.v11 import Message
 from nonebot.matcher import Matcher
@@ -12,6 +12,7 @@ from nonebot.rule import to_me
 
 this_command = "bili"
 bili = on_command(this_command, aliases={"攻略"}, rule=to_me(), priority=5)
+(bot_name,) = get_driver().config.nickname
 
 
 @bili.handle()
@@ -47,4 +48,4 @@ async def search_bili(keyword: str):
             url = bs.find("a", "img-anchor")['href'].replace("//", "https://").replace("?from=search", "")
             return up_name, title, url
     except:
-        return None
+        return "", f"点击看{bot_name}热舞", "https://www.bilibili.com/video/BV1GJ411x7h7"
