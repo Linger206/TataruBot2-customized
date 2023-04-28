@@ -84,7 +84,7 @@ async def search_quest(quest_name: str):
     if len(quests) == 0:
         quests = [e for e in plot_quest_list if quest_name in e["fields"]['language_names']]
     if not quests:
-        msg = f'找不到任务"{quest_name}"，请检查后查询'
+        msg = f'找不到任务"{quest_name}"，请检查任务名'
     else:
         quest = max(quests, key=lambda x: SequenceMatcher(None, str(x), quest_name).ratio())
         # main scenario
@@ -147,8 +147,10 @@ async def handle_key_word(key_word: str = ArgPlainText()):
         await quest_matcher.finish("任务名为空")
     try:
         result = await search_quest(key_word)
-    except Exception:
-        await quest_matcher.finish("查询失败")
+        if type(result) != dict:
+            raise Exception(result)
+    except Exception as e:
+        await quest_matcher.finish(e.args if e.args else "查询失败")
         return
 
     msg = "任务名: {}\n" \
