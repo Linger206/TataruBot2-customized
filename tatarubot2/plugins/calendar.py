@@ -3,7 +3,7 @@
 近期活动日历
 """
 
-
+from nonebot import get_driver
 from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.typing import T_State
@@ -36,6 +36,7 @@ async def calendar_help():
 
 """ 此处添加任务 每一段时间同步一次日历 """
 async def download_calendar():
+    logger.info("开启日历自动更新")
     while True:
         res = await aiohttp_get(url, "bytes")
         if res is not None:
@@ -47,10 +48,16 @@ async def download_calendar():
         else:
             logger.info("日历更新 失败")
         await asyncio.sleep(60 * 60)
-loop = asyncio.get_event_loop()
-if loop.is_running():
-    loop.create_task(download_calendar())
-    logger.info("开启日历自动更新")
+
+""" nb启动时运行 """
+driver = get_driver()
+@driver.on_startup
+async def auto_download():
+    loop = asyncio.get_event_loop()
+    if loop.is_running():
+        loop.create_task(download_calendar())
+    else:
+        logger.warning("日历自动更新似乎有问题")
 
 
 def res_format(info_item):
