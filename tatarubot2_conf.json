@@ -1,8 +1,8 @@
 {
   "proxy": {
     "info": "对查物价和日志订阅使用代理连接",
-    "enable": false,
-    "url": "socks5://127.0.0.1:1080"
+    "enable": true,
+    "url": "socks5://127.0.0.1:10808"
   },
   "chat_ai": {
     "info": "chatgpt聊天",
@@ -36,7 +36,8 @@
   "market": {
     "info": "查物价，如果以图片格式回复则use_pic改为true",
     "enable": true,
-    "use_pic": true
+    "use_pic": false,
+    "default_dc": "猫小胖"
   },
   "market_new": {
     "info": "查物价，使用本地物品id信息",
