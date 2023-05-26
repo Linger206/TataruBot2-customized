@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from fuzzywuzzy import fuzz
 from nonebot import on_command, get_driver
-from nonebot.adapters import Bot, Event, Message
+from nonebot.adapters import Event, Message
+from nonebot.adapters.onebot.v11 import Message as OnebotMsg, MessageSegment
 from nonebot.rule import to_me
 from nonebot.params import CommandArg
 
@@ -63,4 +64,7 @@ async def handle_first_receive(event: Event, keyword: Message = CommandArg()):
                      "\n\n".join(help_list)
     else:
         return_str = await find_best_match(help_list, keyword.extract_plain_text())
-    await bot_help.finish(return_str)
+    msg = OnebotMsg([MessageSegment.at(event.get_user_id()),
+                     MessageSegment.text("\n" + return_str)])
+
+    await bot_help.finish(msg)
