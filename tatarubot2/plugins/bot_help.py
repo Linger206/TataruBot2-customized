@@ -20,12 +20,12 @@ from tatarubot2.plugins.bili import bili_help
 from tatarubot2.plugins.quest import quest_help
 
 this_command = "/help"
-bot_help = on_command(this_command, rule=to_me(), priority=5)
+bot_help = on_command(this_command, priority=5)
 (bot_name,) = get_driver().config.nickname
 
 
 async def create_help():
-    return_list = []
+    return_list = ["/help：显示此帮助信息", "/help 关键字：显示关键字相关的帮助信息"]
     return_list.append(await nuannuan_help())
     return_list.append(await precious_help())
     return_list.append(await lottery_help())
