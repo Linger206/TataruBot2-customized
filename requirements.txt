@@ -7,3 +7,4 @@ Pillow
 icalendar
 emoji
 aiohttp_socks
+fuzzywuzzy

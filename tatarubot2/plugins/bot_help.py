@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-
+from fuzzywuzzy import fuzz
 from nonebot import on_command, get_driver
-from nonebot.adapters import Bot, Event
+from nonebot.adapters import Bot, Event, Message
 from nonebot.rule import to_me
-from nonebot.typing import T_State
+from nonebot.params import CommandArg
 
 from tatarubot2.plugins.ff_weibo import ff_weibo_help
 from tatarubot2.plugins.house import house_help
@@ -37,15 +37,30 @@ async def create_help():
     return_list.append(await logs_dps_help())
     return_list.append(await bili_help())
     return_list.append(await quest_help())
-    return f"【{bot_name}现有的功能】\n注：以(*)开头的命令需私聊或群里@机器人才有效\n\n" +\
-        "\n\n".join(return_list)
+    return return_list
+
+
+async def find_best_match(strings, keyword):
+    best_match = None
+    max_ratio = -1
+
+    for string in strings:
+        if keyword == string.split(" ", 1)[0]:
+            return string
+        ratio = fuzz.ratio(string.lower(), keyword.lower())
+        if ratio > max_ratio:
+            max_ratio = ratio
+            best_match = string
+
+    return best_match
 
 
 @bot_help.handle()
-async def handle_first_receive(bot: Bot, event: Event, state: T_State):
-    args = str(event.get_message()).strip()
-    if args == this_command:
-        return_str = await create_help()
-        await bot_help.finish(return_str)
+async def handle_first_receive(event: Event, keyword: Message = CommandArg()):
+    help_list = await create_help()
+    if not keyword:
+        return_str = f"【{bot_name}现有的功能】\n注：以(*)开头的命令需私聊或群里@机器人才有效\n\n" + \
+                     "\n\n".join(help_list)
     else:
-        return
+        return_str = await find_best_match(help_list, keyword.extract_plain_text())
+    await bot_help.finish(return_str)
