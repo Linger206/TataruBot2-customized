@@ -37,7 +37,7 @@
     "info": "查物价，如果以图片格式回复则use_pic改为true",
     "enable": true,
     "use_pic": false,
-    "default_dc": "豆豆柴",
+    "default_dc": "猫小胖",
     "supported_dc": [
       "陆行鸟",
       "莫古力",
