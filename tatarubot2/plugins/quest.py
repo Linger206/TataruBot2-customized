@@ -133,6 +133,10 @@ async def search_quest(quest_name: str):
 quest_matcher = on_command("quest", aliases={"任务"}, rule=to_me(), priority=5)
 
 
+async def quest_help():
+    return "(*)" + "quest/任务 任务名/关键字 查询任务进度"
+
+
 @quest_matcher.handle()
 async def handle(event: Event, matcher: Matcher):
     key_words = event.get_message().extract_plain_text().strip().split(" ", 1)

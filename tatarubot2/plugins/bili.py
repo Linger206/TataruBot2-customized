@@ -15,6 +15,10 @@ bili = on_command(this_command, aliases={"攻略"}, rule=to_me(), priority=5)
 (bot_name,) = get_driver().config.nickname
 
 
+async def bili_help():
+    return "(*)" + this_command + "/攻略 关键字 搜索B站视频，关键字可以有多个，用空格隔开"
+
+
 @bili.handle()
 async def handle(event: Event, matcher: Matcher):
     key_words = event.get_message().extract_plain_text().strip().split(" ", 1)

@@ -15,6 +15,8 @@ from tatarubot2.plugins.market import market_help
 from tatarubot2.plugins.market_new import market_new_help
 from tatarubot2.plugins.nuannuan import nuannuan_help
 from tatarubot2.plugins.precious import precious_help
+from tatarubot2.plugins.bili import bili_help
+from tatarubot2.plugins.quest import quest_help
 
 this_command = "/help"
 bot_help = on_command(this_command, rule=to_me(), priority=5)
@@ -33,7 +35,10 @@ async def create_help():
     return_list.append(await market_new_help())
     return_list.append(await house_help())
     return_list.append(await logs_dps_help())
-    return f"【{bot_name}现有的功能】\n\n" + "\n\n".join(return_list)
+    return_list.append(await bili_help())
+    return_list.append(await quest_help())
+    return f"【{bot_name}现有的功能】\n注：以(*)开头的命令需私聊或群里@机器人才有效\n\n" +\
+        "\n\n".join(return_list)
 
 
 @bot_help.handle()
