@@ -11,7 +11,7 @@ from nonebot.adapters.onebot.v11 import Message, MessageSegment
 
 import re
 
-from tatarubot2.plugins.utils import aiohttp_get, str2img
+from tatarubot2.plugins.utils import aiohttp_get, str2img, get_conf_dict
 
 this_command = "攻略 "
 dungeon_note = on_command(this_command, priority=5)
@@ -21,10 +21,15 @@ url = "https://ff14.org/duty"
 async def dungeon_note_help():
     return this_command + "(副本等级) 副本名关键字 (文本)：查简单副本攻略，括号内为可选参数，默认输出图片攻略"
 
+
+conf_dict = get_conf_dict()
+use_proxy = conf_dict["proxy"]["enable"]
+
+
 async def run(dungeon_info):
     # 获取所有攻略页面列表
     note_dict = {}
-    r = await aiohttp_get(url, res_type="text")
+    r = await aiohttp_get(url, res_type="text", proxy=use_proxy)
     pattern = re.compile(r'/duty/.*?</a>', re.S)
     res_list = pattern.findall(r)
     for line in res_list[:-3]:
@@ -81,7 +86,7 @@ async def run(dungeon_info):
         return res_text[:-1]
 
     # 获取具体攻略
-    r = await aiohttp_get(url + "/" + page_id_now[0][-1] + ".htm", res_type="text")
+    r = await aiohttp_get(url + "/" + page_id_now[0][-1] + ".htm", res_type="text", use_proxy=use_proxy)
     pattern = re.compile(r'<p>.*?</p>|<h\d.*?</h\d>')
     res_list = pattern.findall(r)
     res_text = ""
