@@ -86,7 +86,7 @@ async def run(dungeon_info):
         return res_text[:-1]
 
     # 获取具体攻略
-    r = await aiohttp_get(url + "/" + page_id_now[0][-1] + ".htm", res_type="text", use_proxy=use_proxy)
+    r = await aiohttp_get(url + "/" + page_id_now[0][-1] + ".htm", res_type="text", proxy=use_proxy)
     pattern = re.compile(r'<p>.*?</p>|<h\d.*?</h\d>')
     res_list = pattern.findall(r)
     res_text = ""
