@@ -1,8 +1,12 @@
 {
+  "conf_ver": {
+    "info": "配置文件版本，用于判断插件代码是否有大更新",
+    "ver": "0.1.16"
+  },
   "proxy": {
-    "info": "对查物价和日志订阅使用代理连接",
+    "info": "对查物价、攻略和日志订阅使用代理连接",
     "enable": true,
-    "url": "socks5://127.0.0.1:10808"
+    "url": "socks5://127.0.0.1:20170"
   },
   "chat_ai": {
     "info": "chatgpt聊天",
@@ -87,8 +91,7 @@
   },
   "market_new": {
     "info": "查物价，使用本地物品id信息",
-    "enable": true,
-    "use_pic": false
+    "enable": true
   },
   "nuannuan": {
     "info": "本周时尚品鉴作业",
@@ -104,7 +107,7 @@
   },
   "dungeon_note": {
     "info": "查简单副本攻略",
-    "enable": false
+    "enable": true
   },
   "calendar": {
     "info": "获取FF近期活动日历",
