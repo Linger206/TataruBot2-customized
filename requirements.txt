@@ -8,3 +8,4 @@ icalendar
 emoji
 aiohttp_socks
 fuzzywuzzy
+EdgeGPT

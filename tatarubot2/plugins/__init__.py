@@ -9,6 +9,8 @@ if plugins_dict:
     if plugins_dict["chat_ai"]["enable"]:
         from .chat_ai import *
         openai.api_key = plugins_dict["chat_ai"]["api_key"]
+    if plugins_dict["bing_ai"]["enable"]:
+        from .bing_ai import *
     if plugins_dict["ff_weibo"]["enable"]:
         from .ff_weibo import *
     if plugins_dict["house"]["enable"]:
