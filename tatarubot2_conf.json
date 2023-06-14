@@ -6,12 +6,16 @@
   "proxy": {
     "info": "对查物价、攻略和日志订阅使用代理连接",
     "enable": true,
-    "url": "socks5://127.0.0.1:20170"
+    "url": "http://127.0.0.1:20171"
   },
   "chat_ai": {
     "info": "chatgpt聊天",
     "enable": false,
     "api_key": "这里填你自己的chatgpt账号aip key，需要魔法上网"
+  },
+  "bing_ai": {
+    "info": "bingai聊天",
+    "enable": true
   },
   "ff_weibo": {
     "info": "获取FF微博新闻",
