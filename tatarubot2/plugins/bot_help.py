@@ -6,6 +6,7 @@ from nonebot.adapters.onebot.v11 import Message as OnebotMsg, MessageSegment
 from nonebot.rule import to_me
 from nonebot.params import CommandArg
 
+from tatarubot2.plugins.bing_ai import bing_help
 from tatarubot2.plugins.ff_weibo import ff_weibo_help
 from tatarubot2.plugins.house import house_help
 from tatarubot2.plugins.item import item_help
@@ -36,6 +37,7 @@ async def create_help():
     return_list.append(await market_new_help())
     return_list.append(await house_help())
     return_list.append(await logs_dps_help())
+    return_list.append(await bing_help())
     return_list.append(await bili_help())
     return_list.append(await quest_help())
     return return_list
